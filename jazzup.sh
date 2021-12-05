@@ -96,14 +96,14 @@ download_and_extract() {
 
 update_installer() {
     local installer_path=$0
-    local remote_hash=$(curl https://git.io/fpcV6 -sSfL | sha512sum | cut -d " " -f 1)
+    local remote_hash=$(curl https://raw.githubusercontent.com/jazzdotdev/jazzup/main/jazzup.sh -sSfL | sha512sum | cut -d " " -f 1)
     local local_hash=$(sha512sum $0 | cut -d " " -f 1)
 
     if [ "$remote_hash" == "$local_hash" ]; then
         error "Installer is up to date"
     else
         if [ -w "$0" ]; then
-            curl https://git.io/fpcV6 -sSfL > $installer_path
+            curl https://raw.githubusercontent.com/jazzdotdev/jazzup/main/jazzup.sh -sSfL > $installer_path
             local new_hash=$(sha512sum $0 | cut -d " " -f 1)
             if [ "$remote_hash" == "$new_hash" ]; then
                 echo "Installer has been updated"
